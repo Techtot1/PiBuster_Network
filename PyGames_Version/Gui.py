@@ -3,6 +3,7 @@ import pygame
 import pygame_gui
 import threading
 import Networking
+import adapter
 UI_e_folder = "UI_elements/"
 UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"}
 pygame.init()
@@ -61,6 +62,8 @@ def menu_1_show():
             pygame_gui.core.ui_element.UIElement.hide(Prev_Button)
 
 
+
+
 def Button_Events():
     if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -93,7 +96,7 @@ is_running = True
 
 while is_running:
 
-    Connected = pygame.image.load(UI_elements[Networking.connection()])
+    Connected = pygame.image.load(UI_elements[adapter.connection()])
     Connected = pygame.transform.scale(Connected, (int(320/3), int(90/3)))
     
 
@@ -111,7 +114,7 @@ while is_running:
     manager.update(time_delta)
 
     window_surface.blit(background, (0, 0))
-    window_surface.blit(connection_status, (0,205))
+    window_surface.blit(Connected, (0,205))
 
     manager.draw_ui(window_surface)
 

@@ -8,3 +8,6 @@ def Adapters():
 
     #adapters_parse = adapters.split(" ")
     return adapters
+
+def connection():
+    return("connected")
