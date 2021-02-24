@@ -2,7 +2,7 @@ import pythonping
 import speedtest
 import iperf3
 import threading
-
+from subprocess import call
 
 
 def speedtestinit():
@@ -17,8 +17,8 @@ def iperfInit():
     print()
 
 def connection():
-    print(pythonping.ping("google.ca",count=1,))
-
+    #print(pythonping.ping("google.ca",count=1,))
+    return("connected")
 
 def speedtest_download():
     print()
@@ -52,3 +52,12 @@ def ewen_ping():
     print()
 
 
+def wifi_toggle():
+    print()
+
+def ethernet_toggle():
+    print()
+    # for reference when using call rc = call("./sleep.sh")
+
+def display_ip():
+    print()
