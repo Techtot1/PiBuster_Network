@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import pygame
 import pygame_gui
 import threading
@@ -110,7 +111,7 @@ while is_running:
     manager.update(time_delta)
 
     window_surface.blit(background, (0, 0))
-    window_surface.blit(Connected, (0,205))
+    window_surface.blit(connection_status, (0,205))
 
     manager.draw_ui(window_surface)
 
