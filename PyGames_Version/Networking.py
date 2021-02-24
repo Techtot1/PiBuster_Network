@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import pythonping
 import speedtest
 import iperf3
