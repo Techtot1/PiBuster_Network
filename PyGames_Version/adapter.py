@@ -70,22 +70,19 @@ def toggle(Adapter):
             print(f"{Adapter} Toggled to True")
             Adapters_status[Adapter] = True
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
-            return False
+            return True
 
-        #elif Adapters_status[Adapter] == False:
-         #   print(f"{Adapter} Toggled to True")
-          #  Adapters_status[Adapter] = True
-           # Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
-
-           # return True
     else:
         if Adapters_status[Adapter] == True:
             print(f"{Adapter} Toggled to False")
             Adapters_status[Adapter] = False
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
             return True
+            subprocess.run([f'sudo ifconfig {Adapter} down"'],shell=True)
         elif Adapters_status[Adapter] == False:
             print(f"{Adapter} Toggled to True")
             Adapters_status[Adapter] = True
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
             return False
+            subprocess.run([f'sudo ifconfig {Adapter} up"'],shell=True)
+             
