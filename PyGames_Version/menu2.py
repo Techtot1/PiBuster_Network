@@ -3,9 +3,11 @@
 import pygame
 import pygame_gui
 import threading
+
+from pygame_gui.core.ui_appearance_theme import THEME_PATH
 import Networking
 import adapter
-
+import Options_Menu 
 def Gui():
     
     pygame.init()
@@ -37,7 +39,7 @@ def Gui():
                                             manager=manager)
     Prev_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((220, 190), (50,50)),
                                             text='<',
-                                            manager=manager )
+                                            manager=manager, THEME_PATH="button.js" )
                                         
 
                            
@@ -56,9 +58,10 @@ def Gui():
                     if event.ui_element == But1:
                         print("This Is IP Check")
                     if event.ui_element == But2:
-                        print("This Is Interface Toggle")                        
-                    if event.ui_element == But3:
                         print("This Is options")
+                        Options_Menu.Gui()                        
+                    if event.ui_element == But3:
+                        print("N/A")
                     if event.ui_element == Prev_Button:
                         return None 
         manager.update(time_delta)
