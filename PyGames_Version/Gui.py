@@ -10,7 +10,7 @@ UI_e_folder = "UI_elements/"
 UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"}
 pygame.init()
 
-
+adapter.get_status()
 
 # THE HOLY GRAIL. pygame_gui.core.ui_element.UIElement.hide(Iperf_Button)
 

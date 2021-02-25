@@ -3,10 +3,10 @@
 import pygame
 import pygame_gui
 import threading
-
+import os
 import Networking
 import adapter
-
+import json
 def Gui():
     
     pygame.init()
@@ -112,8 +112,21 @@ def interface():
     clock = pygame.time.Clock()
     is_running = True
     
-    print(len(interfaces))
 
+
+    with open(os.getcwd()+"/Interfaces.json","r+") as Adapters_status_get:
+        Adapters_status = json.load(Adapters_status_get)
+    for i in interfaces:
+        status = Adapters_status[i]
+        if status == True:
+            locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(120, 204, 126) 
+            locals()[f"{i}But"].rebuild()
+            print("green")
+            continue
+        elif status == False:
+            locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
+            locals()[f"{i}But"].rebuild()   
+            print("red") 
 
     while is_running:
         Connected = pygame.image.load(UI_elements[adapter.connection()])
@@ -129,11 +142,16 @@ def interface():
                         return()
                     for i in interfaces:
                         if event.ui_element == locals()[i+"But"]:
-                            
-                            print(locals()[f"{i}But"].colours)
-                            locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(0, 98, 255) 
-                            locals()[f"{i}But"].rebuild()
-
+                            status = adapter.toggle(i)
+                            if status == False:
+                                locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(120, 204, 126) 
+                                locals()[f"{i}But"].rebuild()
+                                print("green")
+                                
+                            elif status == True:
+                                locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
+                                locals()[f"{i}But"].rebuild()   
+                                print("red")                         
         manager.update(time_delta)
         window_surface.blit(background, (0, 0))
         window_surface.blit(Connected, (0,205))
