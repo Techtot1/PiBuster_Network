@@ -4,6 +4,8 @@ import pygame_gui
 import threading
 import Networking
 import adapter
+import menu2
+
 UI_e_folder = "UI_elements/"
 UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"}
 pygame.init()
@@ -27,7 +29,11 @@ background.fill(pygame.Color('#000000'))
 
 manager = pygame_gui.UIManager((320, 240))
 
-
+#
+#
+#
+#
+# MAIN MENU
 Speedtest_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((25, 0), Btn_size),
                                         text='Speedtest',
                                         manager=manager)
@@ -44,52 +50,19 @@ Ping_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((25, 150), 
 Next_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((270, 190), (50,50)),
                                             text='>',
                                             manager=manager )
-Prev_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((270, 190), (50,50)),
-                                            text='<',
-                                            manager=manager )
-pygame_gui.core.ui_element.UIElement.hide(Prev_Button)
-
-Menu1 = (Speedtest_Button,Iperf_Button,Ping_Button,Next_Button)
-
-
-def menu_1_hide():
-        for i in Menu1:
-            pygame_gui.core.ui_element.UIElement.hide(i)
-            pygame_gui.core.ui_element.UIElement.show(Prev_Button)
-def menu_1_show():
-        for i in Menu1:
-            pygame_gui.core.ui_element.UIElement.show(i)
-            pygame_gui.core.ui_element.UIElement.hide(Prev_Button)
 
 
 
 
-def Button_Events():
-    if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == Speedtest_Button:
-                    print("This Is Speedtest")
-        
-        
-    if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == Iperf_Button:
-                    print("This Is Iperf")
-                    
-    if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == Ping_Button:
-                    print("This Is Ping")
-    if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == Next_Button:
-                    print("This Is Next Page")
-                    menu_1_hide()
-    if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == Prev_Button:
-                    print("This Is Previouse Page")
-                    menu_1_show()
+
+ 
+
+    #MENU2
+    #
+    #
+    #
+    #
+
 
 clock = pygame.time.Clock()
 is_running = True
@@ -108,7 +81,16 @@ while is_running:
             is_running = False
 
         manager.process_events(event)
-        Button_Events()
+        if event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == Speedtest_Button:
+                        print("This Is Speedtest")
+                    if event.ui_element == Iperf_Button:
+                        print("This Is Iperf")
+                    if event.ui_element == Ping_Button:
+                        print("This Is Ping")
+                    if event.ui_element == Next_Button:
+                        menu2.Gui()
         
     
     manager.update(time_delta)
