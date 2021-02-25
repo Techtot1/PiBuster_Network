@@ -10,13 +10,13 @@ import adapter
 def Gui():
     
     pygame.init()
-    pygame.display.set_caption('Sub Menu')
+    pygame.display.set_caption('Options')
     window_surface = pygame.display.set_mode((320, 240))
     Btn_size = (150,50)
     UI_e_folder = "UI_elements/"
     UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"} 
     background = pygame.Surface((320, 240))
-    background.fill(pygame.Color("#344185"))
+    background.fill(pygame.Color("#a493bf"))
     manager = pygame_gui.UIManager((320, 240))
   
 
@@ -57,7 +57,8 @@ def Gui():
                     if event.ui_element == But1:
                         print("This Is Display ")
                     if event.ui_element == But2:
-                        print("This Is Interface")                        
+                        print("This Is Interface")
+                        interface()                        
                     if event.ui_element == But3:
                         print("N/A")
                     if event.ui_element == Prev_Button:
@@ -78,15 +79,15 @@ def Gui():
 def interface():
     interfaces = adapter.Adapters()
     pygame.init()
-    pygame.display.set_caption('Sub Menu')
+    pygame.display.set_caption('Inter Faces')
     window_surface = pygame.display.set_mode((320, 240))
     Btn_size = (150,50)
     UI_e_folder = "UI_elements/"
     UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"} 
     background = pygame.Surface((320, 240))
-    background.fill(pygame.Color("#344185"))
+    background.fill(pygame.Color("#b593bf"))
     
-    thing = pygame.Surface((0, 50)).fill(pygame.Color("#00ff00"))
+    
     manager = pygame_gui.UIManager((320, 240),"theme.json")
     oof = "   s"
     if len(interfaces)<=4:
@@ -101,11 +102,13 @@ def interface():
                 locals()[i+"But"]  = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((10, 50*interfaces.index(i)), Btn_size),
                                                 text=i+oof,
                                                 manager=manager)
-            elif interfaces.index(i)>3 and interfaces.index(i)<=7:
+            elif interfaces.index(i)>3 and interfaces.index(i)<=6:
                 locals()[i+"But"]  = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((160, 50*(interfaces.index(i)-4)), Btn_size),
                                                 text=i+oof,
                                                 manager=manager,object_id=pygame_gui.core.ObjectID(f"color-button-{i}") )           
-    
+    Prev_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((220, 190), (50,50)),
+                                        text='<',
+                                        manager=manager )
     clock = pygame.time.Clock()
     is_running = True
     
@@ -122,6 +125,8 @@ def interface():
             manager.process_events(event)     
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == Prev_Button:
+                        return()
                     for i in interfaces:
                         if event.ui_element == locals()[i+"But"]:
                             
@@ -136,5 +141,3 @@ def interface():
 
         manager.draw_ui(window_surface)
         pygame.display.update()
-
-interface()

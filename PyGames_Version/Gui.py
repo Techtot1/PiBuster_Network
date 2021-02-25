@@ -15,10 +15,9 @@ pygame.init()
 # THE HOLY GRAIL. pygame_gui.core.ui_element.UIElement.hide(Iperf_Button)
 
 Btn_size = (150,50)
-cur_Ui = "Menu_1"
 
 
-pygame.display.set_caption('Quick Start')
+pygame.display.set_caption('Main Menu')
 window_surface = pygame.display.set_mode((320, 240))
 
 background = pygame.Surface((320, 240))

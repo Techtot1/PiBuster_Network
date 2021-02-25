@@ -4,14 +4,13 @@ import pygame
 import pygame_gui
 import threading
 
-from pygame_gui.core.ui_appearance_theme import THEME_PATH
 import Networking
 import adapter
 import Options_Menu 
 def Gui():
     
     pygame.init()
-    pygame.display.set_caption('Sub Menu')
+    pygame.display.set_caption('Menu 2')
     window_surface = pygame.display.set_mode((320, 240))
     Btn_size = (150,50)
     UI_e_folder = "UI_elements/"
@@ -39,7 +38,7 @@ def Gui():
                                             manager=manager)
     Prev_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((220, 190), (50,50)),
                                             text='<',
-                                            manager=manager, THEME_PATH="button.js" )
+                                            manager=manager)
                                         
 
                            

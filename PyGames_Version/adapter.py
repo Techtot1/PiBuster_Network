@@ -4,7 +4,7 @@ import os
 def Adapters():
     
     if os.name == "nt":
-        adapters = ("wlan0","eth0","eth1","eth2","ed","esh1","esh2","ash2") 
+        adapters = ("wlan0","eth0","eth1","eth2","ed","esh1","esh2") 
         
     else:    
         adapters_NoParse = subprocess.Popen(['./adapter_check.sh'],shell=True, stdout=subprocess.PIPE, universal_newlines=True).communicate()[0]
@@ -19,3 +19,4 @@ def connection():
     return("connected")
 
  
+#sudo ifconfig wlan0 up
