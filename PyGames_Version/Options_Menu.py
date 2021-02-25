@@ -143,12 +143,12 @@ def interface():
                     for i in interfaces:
                         if event.ui_element == locals()[i+"But"]:
                             status = adapter.toggle(i)
-                            if status == False:
+                            if status == True:
                                 locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(120, 204, 126) 
                                 locals()[f"{i}But"].rebuild()
                                 print("green")
                                 
-                            elif status == True:
+                            elif status == False:
                                 locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
                                 locals()[f"{i}But"].rebuild()   
                                 print("red")                         
