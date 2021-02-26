@@ -1,14 +1,18 @@
 #!/usr/bin/python3
+
 import pygame
 import pygame_gui
 import threading
 import Networking
 import adapter
 import menu2
-
+import Speedtest_Menu
+import os, psutil
 UI_e_folder = "UI_elements/"
 UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"}
+
 pygame.init()
+
 
 adapter.get_status()
 
@@ -66,6 +70,8 @@ Next_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((270, 190),
 clock = pygame.time.Clock()
 is_running = True
 
+process = psutil.Process(os.getpid())
+print(process.memory_info().rss)  # in bytes 
 while is_running:
 
     Connected = pygame.image.load(UI_elements[adapter.connection()])
@@ -78,12 +84,15 @@ while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_running = False
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                quit()
         manager.process_events(event)
         if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == Speedtest_Button:
                         print("This Is Speedtest")
+                        Speedtest_Menu.Gui()
                     if event.ui_element == Iperf_Button:
                         print("This Is Iperf")
                     if event.ui_element == Ping_Button:
