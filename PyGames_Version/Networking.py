@@ -19,7 +19,7 @@ def iperfInit():
 
 #
 def speedtest_download():
-    print()
+    print("SpEeD tEsT")
 #
 def speedtest_upload():
     print()
