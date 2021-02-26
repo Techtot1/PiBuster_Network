@@ -49,6 +49,9 @@ def Gui():
         Connected = pygame.transform.scale(Connected, (int(320/3), int(90/3)))
         time_delta = clock.tick(60)/1000.0
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    quit()
             if event.type == pygame.QUIT:
                 is_running = False
             manager.process_events(event)     
@@ -111,7 +114,9 @@ def interface():
                                         manager=manager )
     clock = pygame.time.Clock()
     is_running = True
-    
+    for i in interfaces:
+        locals()[f"{i}But"].colours["normal_text"] = pygame.Color(26, 25, 28) 
+        locals()[f"{i}But"].rebuild()     
 
 
     with open(os.getcwd()+"/Interfaces.json","r+") as Adapters_status_get:

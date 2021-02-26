@@ -42,13 +42,15 @@ def Gui():
                                         
 
                            
-                    
-    
+
     while is_running:
         Connected = pygame.image.load(UI_elements[adapter.connection()])
         Connected = pygame.transform.scale(Connected, (int(320/3), int(90/3)))
         time_delta = clock.tick(60)/1000.0
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    quit()
             if event.type == pygame.QUIT:
                 is_running = False
             manager.process_events(event)     

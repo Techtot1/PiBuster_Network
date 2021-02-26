@@ -3,7 +3,7 @@
     "eth0": false,
     "eth1": false,
     "eth2": false,
-    "ed": true,
+    "ed": false,
     "esh1": true,
-    "esh2": true
+    "esh2": false
 }

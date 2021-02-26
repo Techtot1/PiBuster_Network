@@ -65,7 +65,7 @@ def toggle(Adapter):
             print(f"{Adapter} Toggled to False")
             Adapters_status[Adapter] = False
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
-            return True
+            return False
         elif Adapters_status[Adapter] == False:
             print(f"{Adapter} Toggled to True")
             Adapters_status[Adapter] = True
