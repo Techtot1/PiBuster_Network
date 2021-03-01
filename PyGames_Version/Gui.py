@@ -10,10 +10,10 @@ import Speedtest_Menu
 import os, psutil
 UI_e_folder = "UI_elements/"
 UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{UI_e_folder}Disconnected_dark.png"}
-
+os.environ["SDL_FBDEV"] = "/dev/fb1"
 pygame.init()
 
-os.environ["SDL_FBDEV"] = "/dev/fb1"
+
 
 adapter.get_status()
 
