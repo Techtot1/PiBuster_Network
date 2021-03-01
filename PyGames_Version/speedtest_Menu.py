@@ -13,6 +13,8 @@ import os
 os.environ["SDL_FBDEV"] = "/dev/fb1"
 
 def Download():
+    os.environ["SDL_FBDEV"] = "/dev/fb1"
+
     pygame.init()
     pygame.display.set_caption('Menu 2')
     window_surface = pygame.display.set_mode((320, 240))
