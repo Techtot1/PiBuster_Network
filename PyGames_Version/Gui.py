@@ -13,6 +13,7 @@ UI_elements = {"connected":f"{UI_e_folder}Connected_dark.png","disconnected":f"{
 
 pygame.init()
 
+os.environ["SDL_FBDEV"] = "/dev/fb1"
 
 adapter.get_status()
 

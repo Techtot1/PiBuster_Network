@@ -8,6 +8,9 @@ import Networking
 import adapter
 import Options_Menu 
 import time
+import os 
+
+os.environ["SDL_FBDEV"] = "/dev/fb1"
 
 def Download():
     pygame.init()
@@ -132,5 +135,5 @@ def Gui():
 
 
 
-Download()
+#Download()
 #Gui()
