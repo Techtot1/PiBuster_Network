@@ -6,11 +6,11 @@ from random import getrandbits
 
 def Onstart():
     os.remove(os.getcwd()+"/Interfaces.json")
-
+    os.remove(f"{os.getcwd()}/Interfaces_orgin.json")
 def Adapters():
     
     if os.name == "nt":
-        adapters = ("wlan0","eth0","eth1","eth2","ed","esh1","esh2") 
+        adapters = ("wlan0","eth0","eth1","eth2","ed","esh1","oog") 
         
     else:    
         adapters_NoParse = subprocess.Popen(['./adapter_check.sh'],shell=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -53,7 +53,7 @@ def get_status():
                 elif "no" in subprocess.run([f'ethtool {i} |& grep "Link detected: "'],shell=True, stdout=subprocess.PIPE, universal_newlines=True).communicate()[0]: 
                     print()
     Json_update(json_out,f"{os.getcwd()}/Interfaces.json")
-    
+    Json_update(json_out,f"{os.getcwd()}/Interfaces_orgin.json")    
 
 
 def toggle(Adapter):
@@ -78,12 +78,51 @@ def toggle(Adapter):
             print(f"{Adapter} Toggled to False")
             Adapters_status[Adapter] = False
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
-            return True
+            
             subprocess.run([f'sudo ifconfig {Adapter} down"'],shell=True)
+            return False
         elif Adapters_status[Adapter] == False:
             print(f"{Adapter} Toggled to True")
             Adapters_status[Adapter] = True
             Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
-            return False
+            
             subprocess.run([f'sudo ifconfig {Adapter} up"'],shell=True)
-             
+            return True
+def adapter_stop(Adapter):
+    with open(os.getcwd()+"/Interfaces.json","r+") as Adapters_status_get:
+        Adapters_status = json.load(Adapters_status_get)
+    if os.name == "nt":
+        print(f"{Adapter} Turned off")
+        Adapters_status[Adapter] = False
+        Json_update(Adapters_status,f"{os.getcwd()}/Interfaces.json")
+    else:
+        print(f"{Adapter} Turned Off")
+        subprocess.run([f'sudo ifconfig {Adapter} down"'],shell=True)
+        return
+
+def adapter_reset():
+    with open(f"{os.getcwd()}/Interfaces_orgin.json") as In_org:
+        interfaces = json.load(In_org)
+    Json_update(interfaces,f"{os.getcwd()}/Interfaces.json")
+    if os.name == "nt":
+        for i in interfaces:
+            if interfaces[i] == False:
+                print(f"{i} Is down")
+            else:
+                print(f"{i} is up")
+    else:
+        for i in interfaces:
+            if interfaces[i] == False:
+                subprocess.run([f'sudo ifconfig {i} down"'],shell=True)
+            else:
+                subprocess.run([f'sudo ifconfig {i} down"'],shell=True)
+
+def get_cur_status(Adapter):
+    with open(os.getcwd()+"/Interfaces.json","r+") as Adapters_status_get:
+        Adapters_status = json.load(Adapters_status_get)
+        if Adapters_status[Adapter] == True: return True
+        else:return False
+        
+    
+
+        

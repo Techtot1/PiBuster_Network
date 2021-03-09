@@ -1,0 +1,22 @@
+#!/bin/bash
+check=0
+red='\033[0;31m'
+green='\033[0;32m'
+NC='\033[0m' # No Color
+sudo rfkill block wifi
+
+while true; do
+if [[ $(ethtool eth0 |& grep "Link detected: ") == *"yes"*  && $check == 0 ]]
+then
+    echo -e "${green}connected${NC}"
+for i in 0 10; do
+    echo -e "\n"
+done
+    ./check.py
+    check=1
+elif [[ $(ethtool eth0 |& grep "Link detected: ") == *"no"* && $check == 1 ]]
+then
+    echo -e "${red}disconnected${NC}"
+    check=0
+fi
+done

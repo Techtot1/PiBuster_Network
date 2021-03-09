@@ -2,9 +2,6 @@
 import pythonping
 import speedtest
 import iperf3
-import threading
-from subprocess import call
-from adapter import Adapters
 
 def speedtestinit():
     print()
@@ -19,7 +16,11 @@ def iperfInit():
 
 #
 def speedtest_download():
-    print("SpEeD tEsT")
+    speedtestinit()
+    s.download()
+    res = s.results.dict()
+    return int(res["download"])/1000000 
+
 #
 def speedtest_upload():
     print()

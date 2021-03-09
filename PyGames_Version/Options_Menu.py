@@ -112,6 +112,10 @@ def interface():
     Prev_Button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((220, 190), (50,50)),
                                         text='<',
                                         manager=manager )
+    Reset = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((170,190),(50,50)),
+                                                text="Reset", manager=manager)
+    off_ = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((270,190),(50,50)),text="off",manager=manager)
+
     clock = pygame.time.Clock()
     is_running = True
     for i in interfaces:
@@ -121,6 +125,7 @@ def interface():
 
     with open(os.getcwd()+"/Interfaces.json","r+") as Adapters_status_get:
         Adapters_status = json.load(Adapters_status_get)
+    
     for i in interfaces:
         status = Adapters_status[i]
         if status == True:
@@ -131,7 +136,11 @@ def interface():
         elif status == False:
             locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
             locals()[f"{i}But"].rebuild()   
-            print("red") 
+            print("red")     
+    def colour_update(obj,col):
+        obj.colours["normal_bg"] = pygame.Color((col)) 
+        obj.rebuild()     
+        print()
 
     while is_running:
         Connected = pygame.image.load(UI_elements[adapter.connection()])
@@ -144,15 +153,38 @@ def interface():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == Prev_Button:
+                        
                         return()
+                    if event.ui_element == Reset:
+                        adapter.adapter_reset()
+                        for i in interfaces:
+                            status_adap = adapter.get_cur_status(i)
+                            if status_adap == True:
+                            
+                                colour_update(locals()[f"{i}But"],(120,204,126))
+                            else:
+                                
+                                colour_update(locals()[f"{i}But"],(224, 99, 99))
+                    if event.ui_element == off_:
+                        for i in interfaces:
+                            adapter.adapter_stop(i)
+                            colour_update(locals()[f"{i}But"],(224, 99, 99))
+                          
+                    
                     for i in interfaces:
                         if event.ui_element == locals()[i+"But"]:
                             status = adapter.toggle(i)
+
                             if status == True:
                                 locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(120, 204, 126) 
                                 locals()[f"{i}But"].rebuild()
                                 print("green")
-                                
+                                for ii in interfaces:
+                                    if ii != i:
+                                        adapter.adapter_stop(ii)
+                                        locals()[f"{ii}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
+                                        locals()[f"{ii}But"].rebuild()   
+                                        print("red")  
                             elif status == False:
                                 locals()[f"{i}But"].colours["normal_bg"] = pygame.Color(224, 99, 99) 
                                 locals()[f"{i}But"].rebuild()   
@@ -164,3 +196,5 @@ def interface():
 
         manager.draw_ui(window_surface)
         pygame.display.update()
+
+#Gui()
