@@ -23,7 +23,10 @@ def speedtest_download():
 
 #
 def speedtest_upload():
-    print()
+    speedtestinit()
+    s.upload()
+    res = s.results.dict()
+    return int(res["upload"])/1000000 
 #
 def speedtest_latency():
     print()
