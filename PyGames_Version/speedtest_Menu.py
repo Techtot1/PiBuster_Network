@@ -157,7 +157,7 @@ def Upload(g):
          
 def ping(g):
     os.environ["SDL_FBDEV"] = "/dev/fb1"
-
+    ping = []
     pygame.init()
     pygame.display.set_caption('Menu 2')
     window_surface = pygame.display.set_mode((320, 240))
@@ -201,7 +201,7 @@ def ping(g):
                     if event.ui_element == Prev_Button:
                         return None 
                     if event.ui_element == restart_button:
-                        ping = 0
+                        ping = []
                         test_running = False
                         speed_text_block_2 = pygame_gui.elements.UITextBox(f'<font face=fira_code size=4 color= #ffffff>SpeedTest Is running...<b></b>',
                                 pygame.Rect((0, 0), (230, 50)),
@@ -218,10 +218,12 @@ def ping(g):
         manager.draw_ui(window_surface)
         pygame.display.update()
         if not test_running and g==True:
-            ping = Networking.speedtest_latency()
+            print("WWW")
+            ping = Networking.speedtest_latency(8)
             test_running = True 
-        if upload > 0:
-            speed_text_block_2 = pygame_gui.elements.UITextBox(f'<font face=fira_code size=4 color= #ffffff>Upload: {upload} mbps<b></b>',
+            
+        if ping:
+            speed_text_block_2 = pygame_gui.elements.UITextBox(f'<font face=fira_code size=4 color= #ffffff>Upload: {sum(ping)/len(ping)} mbps<b></b>',
                              pygame.Rect((0, 0), (230, 50)),
                              manager=manager)
             speed_text_block_2.set_active_effect('fade_in')
