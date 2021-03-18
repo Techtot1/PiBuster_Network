@@ -28,8 +28,13 @@ def speedtest_upload():
     res = s.results.dict()
     return int(res["upload"])/1000000 
 #
-def speedtest_latency():
-    print()
+def speedtest_latency(times):
+    ping = []
+    for i in range(0,times):
+        ping_cur = str(pythonping.ping("speedtest.net",count=2,size=1024))
+        ping.append(ping_cur[ping_cur.index("ms")-5 : ping_cur.index("ms"):1].strip())
+    #print(ping)
+
 #
 def speedtest_cabletest():
     print()
