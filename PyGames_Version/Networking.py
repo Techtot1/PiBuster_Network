@@ -32,8 +32,9 @@ def speedtest_latency(times):
     ping = []
     for i in range(0,times):
         ping_cur = str(pythonping.ping("speedtest.net",count=2,size=1024))
-        ping.append(ping_cur[ping_cur.index("ms")-5 : ping_cur.index("ms"):1].strip())
+        ping.append(float(ping_cur[ping_cur.index("ms")-5 : ping_cur.index("ms"):1].strip()))
     #print(ping)
+    return ping
 
 #
 def speedtest_cabletest():

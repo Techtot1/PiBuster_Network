@@ -1,9 +1,9 @@
 {
     "wlan0": true,
-    "eth0": false,
+    "eth0": true,
     "eth1": false,
-    "eth2": false,
-    "ed": true,
-    "esh1": true,
+    "eth2": true,
+    "ed": false,
+    "esh1": false,
     "oog": true
 }
